@@ -1,109 +1,118 @@
 # 📊 Portfólio – Analista de Dados
 
-> Portfólio focado em **Análise de Dados e BI**, simulando um cenário real de uso corporativo. A solução cobre desde a **extração de dados em PostgreSQL**, passando pela **modelagem analítica**, até a **entrega de dashboards executivos no Power BI**, com foco em métricas de negócio e apoio à tomada de decisão.
+> Projeto de BI corporativo focado em **Análise de Dados e tomada de decisão**, utilizando **PostgreSQL como fonte de dados** e **Power BI para visualização**. O cenário representa um ambiente real de uso em produção, com dados anonimizados para fins de portfólio.
 
 ---
 
 ## 👋 Sobre mim
 
-Sou **Analista de Dados** com experiência prática na construção de dashboards no Power BI a partir de dados extraídos via SQL (PostgreSQL). Atuo transformando dados transacionais em **informações claras, acionáveis e orientadas ao negócio**, apoiando áreas como comercial e gestão.
+Sou **Analista de Dados** com experiência prática na construção de dashboards no Power BI a partir de dados extraídos diretamente via **SQL (PostgreSQL)**. Atuo transformando dados transacionais em **métricas claras e acionáveis**, apoiando áreas de negócio na tomada de decisão.
 
-**Principais competências:**
+Tenho atuação sólida em:
 
-* SQL para análise e camada analítica
-* Power BI (modelagem, DAX e visualização)
-* Métricas de negócio
-* Storytelling com dados
+* Escrita de SQL para extração e transformação de dados
+* Regras de negócio aplicadas diretamente na camada de dados
+* Modelagem e consumo de dados no Power BI
+* Construção de KPIs e dashboards executivos
 
 ---
 
-## 🧰 Stack de Tecnologias
+## 🧰 Tecnologias Utilizadas
 
-* **Banco de dados:** PostgreSQL
+* **Banco de Dados:** PostgreSQL
 * **Linguagem:** SQL
 * **BI & Visualização:** Power BI
 * **Versionamento:** Git & GitHub
-* **Outros:** Excel, modelagem dimensional
 
 ---
 
-## 📂 Projeto Principal — Performance de Vendas e Clientes
+## 📂 Projeto Principal — Análise de Vendas, Clientes e Frequência
 
-### 📌 Contexto
+### 📌 Contexto do Projeto
 
-Este projeto simula um ambiente real de BI corporativo, no qual dados transacionais de vendas são armazenados em um banco PostgreSQL e consumidos pelo Power BI para geração de indicadores estratégicos.
+Este projeto representa um **dashboard real de BI corporativo**, no qual dados de **clientes, vendas, frequência de compra e lojas** são extraídos de um banco PostgreSQL e utilizados no Power BI para acompanhamento da performance do negócio.
+
+Os dados foram **anonimizados**, mantendo toda a lógica de extração, regras de negócio e modelagem utilizadas em ambiente produtivo.
+
+---
 
 ### 🎯 Objetivo
 
-Fornecer uma visão clara da performance comercial, permitindo que gestores acompanhem:
+Disponibilizar indicadores que permitam responder perguntas como:
 
-* Evolução de receita
-* Crescimento ao longo do tempo
-* Comportamento de clientes
-
----
-
-### 🗄️ Modelo de Dados
-
-O modelo segue o padrão **fato + dimensões**:
-
-* **Fato:** vendas
-* **Dimensões:** clientes, lojas, tempo
+* Quantos clientes estão ativos e com que frequência compram?
+* Como evoluem as vendas ao longo do tempo?
+* Qual o volume de vendas e itens por transação?
+* Qual o desempenho por loja?
 
 ---
 
-### 🧠 Camada Analítica (PostgreSQL)
+### 🗄️ Camada de Dados (PostgreSQL)
 
-A camada analítica é construída por meio de *views*, responsáveis por organizar e consolidar os dados para consumo no Power BI.
+A extração dos dados é realizada exclusivamente via **queries SQL**, organizadas por contexto de negócio e consumidas diretamente pelo Power BI.
 
-**Exemplo de view analítica:**
+As consultas contemplam:
 
-```sql
-CREATE VIEW vw_vendas_analiticas AS
-SELECT
-    v.data_venda,
-    l.nome_loja,
-    p.categoria,
-    c.segmento_cliente,
-    COUNT(DISTINCT v.id_venda) AS quantidade_vendas,
-    SUM(iv.valor_total) AS receita
-FROM vendas v
-JOIN itens_venda iv ON v.id = iv.id_venda
-JOIN produtos p ON iv.id_produto = p.id
-JOIN clientes c ON v.id_cliente = c.id
-JOIN lojas l ON v.id_loja = l.id
-GROUP BY
-    v.data_venda,
-    l.nome_loja,
-    p.categoria,
-    c.segmento_cliente;
-```
+* Base cadastral de clientes
+* Frequência de compra (apenas vendas válidas, conforme regra de negócio)
+* Vendas consolidadas por período
+* Quantidade de itens por venda, com **tratamento específico para produtos pesáveis**
+* Cadastro de lojas
 
-Essa abordagem facilita manutenção, melhora performance e separa responsabilidades entre banco e BI.
+📁 Todas as queries utilizadas estão disponíveis na pasta `/sql`.
 
 ---
 
-### 📊 Métricas de Negócio
+### 🧠 Regras de Negócio Aplicadas em SQL
 
-As principais métricas disponibilizadas no dashboard incluem:
+Algumas regras relevantes implementadas diretamente na camada de dados:
 
-* **Receita total**
-* **Crescimento mês a mês (MoM)**
-* **Ticket médio**
+* Consideração apenas de frequências associadas a vendas (`idtipofrequencia = 3`)
+* Recorte temporal dinâmico (dados desde janeiro do ano anterior)
+* Cálculo de quantidade de itens por venda considerando:
+  * Produtos pesáveis abaixo de 1kg contabilizados como 1 item
+  * Quantidades fracionadas tratadas como 1 item
+  * Demais casos utilizando a quantidade inteira
+* Uso de parâmetros `@RangeStart` e `@RangeEnd` para **atualização incremental no Power BI**
+
+Essas regras garantem maior aderência dos indicadores à realidade do negócio.
+
+---
+
+### 📊 Métricas Disponibilizadas
+
+* **Receita total de vendas**
+* **Evolução de vendas ao longo do tempo**
 * **Clientes ativos**
+* **Frequência de compra**
+* **Quantidade média de itens por venda**
+* **Performance por loja**
 
-Todas as métricas foram definidas com foco em apoiar decisões estratégicas da liderança.
+As métricas foram definidas com foco em **monitoramento operacional e análise gerencial**.
 
 ---
 
 ### 📈 Dashboard no Power BI
 
-#### 🔹 Visão Executiva
+O dashboard foi desenvolvido com foco em **clareza, simplicidade e uso executivo**, priorizando KPIs essenciais e análises que facilitem a leitura dos dados.
 
-* Receita total
-* Crescimento MoM
-* Ticket médio
-* Clientes ativos
+Estrutura do dashboard:
+
+* **Visão Geral:** vendas, clientes e frequência
+* **Análise por Loja:** comparativos e rankings
+* **Análise Temporal:** evolução mensal das métricas
+
+📁 As imagens do dashboard estão disponíveis na pasta `/powerbi`.
+
+---
+
+### 💡 Principais Insights (exemplos)
+
+* Clientes com maior frequência concentram a maior parte do faturamento
+* Existem variações significativas de desempenho entre lojas
+* O volume médio de itens por venda varia conforme o período
+
+---
 
 ## 📂 Estrutura do Repositório
 
@@ -111,7 +120,7 @@ Todas as métricas foram definidas com foco em apoiar decisões estratégicas da
 portfolio-analista-dados/
 │
 ├── sql/
-│   ├── 01_selects.sql
+│   └── selects_extracao.sql
 │
 ├── powerbi/
 │   └── screenshots/
@@ -123,9 +132,9 @@ portfolio-analista-dados/
 
 ## 📬 Contato
 
-* LinkedIn: [https://linkedin.com/in/seu-perfil](https://www.linkedin.com/in/caiozaffani)
+* LinkedIn: [https://linkedin.com/in/seu-perfil](https://www.linkedin.com/in/caiozaffani/)
 * GitHub: [https://github.com/seu-usuario](https://github.com/caiozaffani)
 
 ---
 
-⭐ Este portfólio demonstra uma solução de BI ponta a ponta, com foco em análise de dados, métricas de negócio e suporte à tomada de decisão.
+⭐ Este portfólio demonstra a aplicação prática de SQL e Power BI em um cenário real de análise de dados, com foco em regras de negócio e suporte à tomada de decisão.
