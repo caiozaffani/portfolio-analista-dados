@@ -111,7 +111,7 @@ Todas as métricas foram definidas com foco em apoiar decisões estratégicas da
 portfolio-analista-dados/
 │
 ├── sql/
-│   ├── 01_metricas.sql
+│   ├── 01_selects.sql
 │
 ├── powerbi/
 │   └── screenshots/
