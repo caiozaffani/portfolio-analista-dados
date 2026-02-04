@@ -51,7 +51,7 @@ Principais análises:
 * Participação de vendas identificadas vs não identificadas
 * Impacto de ticket médio, frequência e itens no carrinho
 
-📷 ![Visão Geral](powerbi/screenshots/01-visao-geral.png)
+![Visão Geral](powerbi/screenshots/01-visao-geral.png)
 
 ---
 
@@ -64,7 +64,7 @@ Objetivo:
 * Avaliar performance mensal
 * Comparar resultados com o ano anterior
 
-📷 ![Faturamento](powerbi/screenshots/02-faturamento.png)
+![Faturamento](powerbi/screenshots/02-faturamento.png)
 
 ---
 
@@ -77,7 +77,7 @@ Objetivo:
 * Entender o comportamento de compra dos clientes fidelizados
 * Identificar oportunidades de aumento de valor por transação
 
-📷 ![Ticket Médio](powerbi/screenshots/03-ticket-medio.png)
+![Ticket Médio](powerbi/screenshots/03-ticket-medio.png)
 
 ---
 
@@ -90,7 +90,7 @@ Objetivo:
 * Avaliar engajamento da base de clientes
 * Medir impacto de frequência no faturamento
 
-📷 ![Frequência e Gasto Médio](powerbi/screenshots/04-frequencia-gasto.png)
+![Frequência e Gasto Médio](powerbi/screenshots/04-frequencia-gasto.png)
 
 ---
 
@@ -103,7 +103,7 @@ Objetivo:
 * Acompanhar crescimento da base
 * Avaliar qualidade do cadastro dos clientes
 
-📷 ![Base de Clientes](powerbi/screenshots/05-base-clientes.png)
+![Base de Clientes](powerbi/screenshots/05-base-clientes.png)
 
 ---
 
