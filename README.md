@@ -1,140 +1,134 @@
-# 📊 Portfólio – Analista de Dados
+# 📊 Portfólio – Análise de Dados (Power BI + SQL)
 
-> Projeto de BI corporativo focado em **Análise de Dados e tomada de decisão**, utilizando **PostgreSQL como fonte de dados** e **Power BI para visualização**. O cenário representa um ambiente real de uso em produção, com dados anonimizados para fins de portfólio.
+Este repositório apresenta um **case real de análise de dados** com foco em desempenho comercial e comportamento de clientes no varejo alimentar.
 
----
-
-## 👋 Sobre mim
-
-Sou **Analista de Dados** com experiência prática na construção de dashboards no Power BI a partir de dados extraídos diretamente via **SQL (PostgreSQL)**. Atuo transformando dados transacionais em **métricas claras e acionáveis**, apoiando áreas de negócio na tomada de decisão.
-
-Tenho atuação sólida em:
-
-* Escrita de SQL para extração e transformação de dados
-* Regras de negócio aplicadas diretamente na camada de dados
-* Modelagem e consumo de dados no Power BI
-* Construção de KPIs e dashboards executivos
+O projeto foi desenvolvido utilizando **PostgreSQL para extração dos dados**, **Power BI para modelagem, métricas e visualização**, e contempla **regras de negócio reais**, atualização incremental e análises comparativas.
 
 ---
 
-## 🧰 Tecnologias Utilizadas
+## 🎯 Objetivo do Projeto
 
-* **Banco de Dados:** PostgreSQL
-* **Linguagem:** SQL
-* **BI & Visualização:** Power BI
-* **Versionamento:** Git & GitHub
+Fornecer uma visão executiva e analítica sobre:
 
----
+* Faturamento e sua evolução temporal
+* Diferença de comportamento entre vendas identificadas e não identificadas
+* Ticket médio, frequência de compra e gasto médio
+* Crescimento e perfil da base de clientes
 
-## 📂 Projeto Principal — Análise de Vendas, Clientes e Frequência
-
-### 📌 Contexto do Projeto
-
-Este projeto representa um **dashboard real de BI corporativo**, no qual dados de **clientes, vendas, frequência de compra e lojas** são extraídos de um banco PostgreSQL e utilizados no Power BI para acompanhamento da performance do negócio.
-
-Os dados foram **anonimizados**, mantendo toda a lógica de extração, regras de negócio e modelagem utilizadas em ambiente produtivo.
+O dashboard foi pensado para apoiar **decisões estratégicas** de negócio, como ações de fidelização, precificação e aumento de recorrência.
 
 ---
 
-### 🎯 Objetivo
+## 🗄️ Fonte de Dados
 
-Disponibilizar indicadores que permitam responder perguntas como:
+* Banco de dados relacional **PostgreSQL**
+* Dados anonimizados de vendas, clientes, frequência e lojas
+* Extração realizada via SQL, com regras de negócio aplicadas na camada de dados
 
-* Quantos clientes estão ativos e com que frequência compram?
-* Como evoluem as vendas ao longo do tempo?
-* Qual o volume de vendas e itens por transação?
-* Qual o desempenho por loja?
-
----
-
-### 🗄️ Camada de Dados (PostgreSQL)
-
-A extração dos dados é realizada exclusivamente via **queries SQL**, organizadas por contexto de negócio e consumidas diretamente pelo Power BI.
-
-As consultas contemplam:
-
-* Base cadastral de clientes
-* Frequência de compra (apenas vendas válidas, conforme regra de negócio)
-* Vendas consolidadas por período
-* Quantidade de itens por venda, com **tratamento específico para produtos pesáveis**
-* Cadastro de lojas
-
-📁 Todas as queries utilizadas estão disponíveis na pasta `/sql`.
-
----
-
-### 🧠 Regras de Negócio Aplicadas em SQL
-
-Algumas regras relevantes implementadas diretamente na camada de dados:
-
-* Consideração apenas de frequências associadas a vendas (`idtipofrequencia = 3`)
-* Recorte temporal dinâmico (dados desde janeiro do ano anterior)
-* Cálculo de quantidade de itens por venda considerando:
-  * Produtos pesáveis abaixo de 1kg contabilizados como 1 item
-  * Quantidades fracionadas tratadas como 1 item
-  * Demais casos utilizando a quantidade inteira
-* Uso de parâmetros `@RangeStart` e `@RangeEnd` para **atualização incremental no Power BI**
-
-Essas regras garantem maior aderência dos indicadores à realidade do negócio.
-
----
-
-### 📊 Métricas Disponibilizadas
-
-* **Receita total de vendas**
-* **Evolução de vendas ao longo do tempo**
-* **Clientes ativos**
-* **Frequência de compra**
-* **Quantidade média de itens por venda**
-* **Performance por loja**
-
-As métricas foram definidas com foco em **monitoramento operacional e análise gerencial**.
-
----
-
-### 📈 Dashboard no Power BI
-
-O dashboard foi desenvolvido com foco em **clareza, simplicidade e uso executivo**, priorizando KPIs essenciais e análises que facilitem a leitura dos dados.
-
-Estrutura do dashboard:
-
-* **Visão Geral:** vendas, clientes e frequência
-* **Análise por Loja:** comparativos e rankings
-* **Análise Temporal:** evolução mensal das métricas
-
-📁 As imagens do dashboard estão disponíveis na pasta `/powerbi`.
-
----
-
-### 💡 Principais Insights (exemplos)
-
-* Clientes com maior frequência concentram a maior parte do faturamento
-* Existem variações significativas de desempenho entre lojas
-* O volume médio de itens por venda varia conforme o período
-
----
-
-## 📂 Estrutura do Repositório
+📁 As queries utilizadas estão disponíveis em:
 
 ```
-portfolio-analista-dados/
-│
-├── sql/
-│   └── selects_extracao.sql
-│
-├── powerbi/
-│   └── screenshots/
-│
-└── README.md
+/sql/selects_extracao.sql
 ```
 
+Destaques técnicos:
+
+* Uso de `date_trunc` para janelas temporais
+* Atualização incremental no Power BI utilizando `@RangeStart` e `@RangeEnd`
+* Tratamento específico de quantidades para itens pesáveis
+
 ---
 
-## 📬 Contato
+## 📊 Visões do Dashboard
 
-* LinkedIn: [https://linkedin.com/in/seu-perfil](https://www.linkedin.com/in/caiozaffani/)
-* GitHub: [https://github.com/seu-usuario](https://github.com/caiozaffani)
+### 📈 Visão Geral – Vetores de Receita
+
+Consolidação dos principais KPIs do período selecionado, com comparação direta ao período anterior.
+
+Principais análises:
+
+* Faturamento total
+* Participação de vendas identificadas vs não identificadas
+* Impacto de ticket médio, frequência e itens no carrinho
+
+📷 ![Visão Geral](powerbi/screenshots/01-visao-geral.png)
 
 ---
 
-⭐ Este portfólio demonstra a aplicação prática de SQL e Power BI em um cenário real de análise de dados, com foco em regras de negócio e suporte à tomada de decisão.
+### 💰 Faturamento – Período x Ano Anterior
+
+Análise da evolução do faturamento ao longo do tempo, permitindo identificar sazonalidade, crescimento e quedas relevantes.
+
+Objetivo:
+
+* Avaliar performance mensal
+* Comparar resultados com o ano anterior
+
+📷 ![Faturamento](powerbi/screenshots/02-faturamento.png)
+
+---
+
+### 🛒 Análise de Ticket Médio
+
+Avaliação do ticket médio geral e segmentado entre vendas identificadas e não identificadas.
+
+Objetivo:
+
+* Entender o comportamento de compra dos clientes fidelizados
+* Identificar oportunidades de aumento de valor por transação
+
+📷 ![Ticket Médio](powerbi/screenshots/03-ticket-medio.png)
+
+---
+
+### 🔁 Frequência de Compra e Gasto Médio
+
+Análise combinada de recorrência de compra e gasto médio ao longo do tempo.
+
+Objetivo:
+
+* Avaliar engajamento da base de clientes
+* Medir impacto de frequência no faturamento
+
+📷 ![Frequência e Gasto Médio](powerbi/screenshots/04-frequencia-gasto.png)
+
+---
+
+### 👥 Base de Clientes
+
+Visão sobre a evolução da base de clientes, segmentada por tipo de cadastro (completo, pré-cadastro e somente CPF).
+
+Objetivo:
+
+* Acompanhar crescimento da base
+* Avaliar qualidade do cadastro dos clientes
+
+📷 ![Base de Clientes](powerbi/screenshots/05-base-clientes.png)
+
+---
+
+## 🧠 Principais Insights Obtidos
+
+* Vendas identificadas apresentam **ticket médio e gasto significativamente superiores** às não identificadas
+* Crescimento de faturamento está mais associado ao **aumento de ticket e gasto médio** do que à frequência
+* Existe oportunidade clara de **converter vendas não identificadas em identificadas**, ampliando LTV
+
+---
+
+## 🛠️ Ferramentas Utilizadas
+
+* **PostgreSQL** – extração e tratamento de dados
+* **Power BI** – modelagem, DAX, atualização incremental e visualização
+* **GitHub** – versionamento e documentação do projeto
+
+---
+
+## 📌 Observações
+
+* Dados sensíveis foram anonimizados
+* Estrutura e métricas refletem cenários reais de negócio
+* Projeto com foco em clareza analítica e tomada de decisão
+
+---
+
+📬 Em caso de interesse ou feedback, fico à disposição para conversar sobre o projeto.
