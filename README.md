@@ -68,10 +68,10 @@ SELECT
     COUNT(DISTINCT v.id_venda) AS quantidade_vendas,
     SUM(iv.valor_total) AS receita
 FROM vendas v
-JOIN itens_venda iv ON v.id_venda = iv.id_venda
-JOIN produtos p ON iv.id_produto = p.id_produto
-JOIN clientes c ON v.id_cliente = c.id_cliente
-JOIN lojas l ON v.id_loja = l.id_loja
+JOIN itens_venda iv ON v.id = iv.id_venda
+JOIN produtos p ON iv.id_produto = p.id
+JOIN clientes c ON v.id_cliente = c.id
+JOIN lojas l ON v.id_loja = l.id
 GROUP BY
     v.data_venda,
     l.nome_loja,
